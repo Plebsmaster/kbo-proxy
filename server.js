@@ -18,7 +18,7 @@ app.post("/lookup", async (req, res) => {
   
   // Correcte SOAP envelope formatteren
   const soapEnvelope = `<?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:kbo="http://economie.fgov.be/kbopub">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:kbo="http://kbopub.economie.fgov.be/">
   <soapenv:Header/>
   <soapenv:Body>
     <kbo:getEnterpriseByEnterpriseNumber>
@@ -30,13 +30,14 @@ app.post("/lookup", async (req, res) => {
   const auth = Buffer.from("wsot0761:vbV5pKuFMFL7nTTpwC4KhPvV").toString("base64");
   
   try {
+    // Gebruik de correcte URL voor de KBO test omgeving die je hebt gedeeld
     const response = await axios.post(
-      "https://kbopub.economie.fgov.be/kbopubwebservice/kbo/KBOService",
+      "https://kbopub-acc.economie.fgov.be/kbopubws110000/services/wsKBOPub",
       soapEnvelope,
       {
         headers: {
           "Content-Type": "text/xml;charset=UTF-8",
-          "SOAPAction": "",
+          "SOAPAction": "http://kbopub.economie.fgov.be/getEnterpriseByEnterpriseNumber",
           "Authorization": `Basic ${auth}`,
         },
       }
