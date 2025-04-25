@@ -26,7 +26,7 @@ app.post("/lookup", async (req, res) => {
   const auth = Buffer.from("wsot0761:vbV5pKuFMFL7nTTpwC4KhPvV").toString("base64");
 
   try {
-    const response = await axios.post("https://kbopub.economie.fgov.be/kbo-ws/kbo", soapEnvelope, {
+    const response = await axios.post("https://kbopub.economie.fgov.be/kbopub/kbo-ws/kbo", soapEnvelope, {
       headers: {
         "Content-Type": "text/xml;charset=UTF-8",
         "Authorization": `Basic ${auth}`,
